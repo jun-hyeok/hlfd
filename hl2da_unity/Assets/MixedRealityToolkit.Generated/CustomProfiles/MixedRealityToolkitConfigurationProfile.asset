@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MixedRealityToolkitConfigurationProfile
   m_EditorClassIdentifier: 
   isCustomProfile: 1
-  experienceSettingsProfile: {fileID: 11400000, guid: 0fa2cddec739bdf40918d62254e3b0ee, type: 2}
+  experienceSettingsProfile: {fileID: 11400000, guid: 1ccbb3b1d759d6a49b4161a958329d9d, type: 2}
   targetExperienceScale: 3
   enableCameraSystem: 1
   cameraProfile: {fileID: 11400000, guid: dab655dd906ba8a4192e8f91aaad0bba, type: 2}
