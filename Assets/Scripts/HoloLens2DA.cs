@@ -9,19 +9,19 @@ public class HoloLens2DA : MonoBehaviour
     public GameObject[] rm_depth_ahat_images;
     public GameObject[] rm_depth_longthrow_images;
 
-    public GameObject[] poses;
-    public GameObject[] calibrations;
+    // public GameObject[] poses;
+    // public GameObject[] calibrations;
 
-    public GameObject acc_text;
-    public GameObject gyr_text;
-    public GameObject mag_text;
+    // public GameObject acc_text;
+    // public GameObject gyr_text;
+    // public GameObject mag_text;
     public GameObject pv_image;
-    public GameObject ev_image;
-    public GameObject mic_text;
-    public GameObject[] si_text;
-    public GameObject[] ee_text;
-    public GameObject ea_text;
-    public GameObject ev_text;
+    // public GameObject ev_image;
+    // public GameObject mic_text;
+    // public GameObject[] si_text;
+    // public GameObject[] ee_text;
+    // public GameObject ea_text;
+    // public GameObject ev_text;
 
     public Texture colormap_texture;
     public Shader colormap_shader;
@@ -397,7 +397,7 @@ public class HoloLens2DA : MonoBehaviour
         {
             float[,] extrinsics = hl2da.user.RM_GetExtrinsics(id);
             string text = sensor_names[id] + " Calibration: extrinsics=" + PoseToString(extrinsics) + CentralPoints(id) + Calibration(id);
-            calibrations[(int)id].GetComponent<TextMeshPro>().text = text;
+            // calibrations[(int)id].GetComponent<TextMeshPro>().text = text;
         }
     }
 
