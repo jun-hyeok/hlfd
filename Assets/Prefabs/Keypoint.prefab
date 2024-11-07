@@ -50,8 +50,8 @@ MonoBehaviour:
   innerCircle: {fileID: 5695897116106202409}
   outerColor: {r: 1, g: 1, b: 1, a: 0}
   innerColor: {r: 0.39607844, g: 0.81960785, b: 0.9764706, a: 0}
-  outerWidth: 0.15
-  innerWidth: 0.1
+  outerWidth: 0.016
+  innerWidth: 0.012
 --- !u!1 &1749681994122561607
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,7 +108,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4a1da085a61f48e48b16d1388d915005, type: 2}
+  - {fileID: 2100000, guid: d2247bfa76e249e4da4bd9987a797888, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -247,7 +247,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4a1da085a61f48e48b16d1388d915005, type: 2}
+  - {fileID: 2100000, guid: d2247bfa76e249e4da4bd9987a797888, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

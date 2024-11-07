@@ -17,7 +17,6 @@ public class FaceDetection : MonoBehaviour
     const int k_NumAnchors = 896;
     float[,] m_Anchors;
 
-    const int k_NumKeypoints = 6;
     const int detectorInputSize = 128;
 
     Worker m_FaceDetectorWorker;
@@ -145,13 +144,6 @@ public class FaceDetection : MonoBehaviour
             var boxSize = 2f * (boxTopRight_ImageSpace - box_ImageSpace);
             facePreviews[i].SetBoundingBox(true, ImageToWorld(box_ImageSpace),
                 boxSize / m_TextureHeight);
-
-            for (var j = 0; j < k_NumKeypoints; j++)
-            {
-                var position_ImageSpace = BlazeUtils.mul(M, anchorPosition + new float2(
-                    outputBoxes[0, i, 4 + 2 * j], outputBoxes[0, i, 4 + 2 * j + 1]));
-                facePreviews[i].SetKeypoint(j, true, ImageToWorld(position_ImageSpace));
-            }
         }
 
         // Allow the main thread to process other tasks
