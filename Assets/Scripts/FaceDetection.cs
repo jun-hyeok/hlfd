@@ -13,10 +13,12 @@ public class FaceDetection : MonoBehaviour
 
     public float iouThreshold = 0.3f;
     public float scoreThreshold = 0.5f;
+    public bool useWebcam = false;
 
     const int k_NumAnchors = 896;
     float[,] m_Anchors;
 
+    const int k_NumKeypoints = 6;
     const int detectorInputSize = 128;
 
     Worker m_FaceDetectorWorker;
@@ -27,19 +29,39 @@ public class FaceDetection : MonoBehaviour
     float m_TextureHeight;
 
     private WebCamTexture webcamTexture;
+    public HoloLens2DA holoLens2DA;
+    private Texture currentTexture;
 
     public async void Start()
     {
-        webcamTexture = new WebCamTexture();
-        webcamTexture.Play();
-
-        while (webcamTexture.width <= 16)
+        if (useWebcam)
         {
-            await Awaitable.NextFrameAsync();
-        }
+            webcamTexture = new WebCamTexture();
+            webcamTexture.Play();
 
-        m_TextureWidth = webcamTexture.width;
-        m_TextureHeight = webcamTexture.height;
+            // Wait until the webcamTexture is ready
+            while (webcamTexture.width <= 16)
+            {
+                await Awaitable.NextFrameAsync();
+            }
+
+            currentTexture = webcamTexture;
+            m_TextureWidth = webcamTexture.width;
+            m_TextureHeight = webcamTexture.height;
+        }
+        else
+        {
+
+            // Wait until tex_pv is ready
+            while (holoLens2DA.texPv == null || holoLens2DA.texPv.width <= 16)
+            {
+                await Awaitable.NextFrameAsync();
+            }
+
+            currentTexture = holoLens2DA.texPv;
+            m_TextureWidth = holoLens2DA.texPv.width;
+            m_TextureHeight = holoLens2DA.texPv.height;
+        }
 
         m_Anchors = BlazeUtils.LoadAnchors(anchorsCSV.text, k_NumAnchors);
 
@@ -81,32 +103,33 @@ public class FaceDetection : MonoBehaviour
 
     Vector3 ImageToWorld(Vector2 position)
     {
+        // position.y = useWebcam ? position.y : m_TextureHeight - position.y;
         return (position - 0.5f * new Vector2(m_TextureWidth, m_TextureHeight)) / m_TextureHeight;
     }
 
     async Awaitable Detect()
     {
         // **Ensure the webcam is ready**
-        if (webcamTexture.width <= 16)
+        if (currentTexture.width <= 16)
         {
             await Awaitable.NextFrameAsync();
             return;
         }
 
-        m_TextureWidth = webcamTexture.width;
-        m_TextureHeight = webcamTexture.height;
-        imagePreview.SetTexture(webcamTexture);
+        m_TextureWidth = currentTexture.width;
+        m_TextureHeight = currentTexture.height;
+        imagePreview.SetTexture(currentTexture, useWebcam);
 
-        var size = Mathf.Max(webcamTexture.width, webcamTexture.height);
+        var size = Mathf.Max(currentTexture.width, currentTexture.height);
 
         // The affine transformation matrix to go from tensor coordinates to image coordinates
         var scale = size / (float)detectorInputSize;
         var M = BlazeUtils.mul(
-            BlazeUtils.TranslationMatrix(0.5f * (new Vector2(webcamTexture.width, webcamTexture.height)
+            BlazeUtils.TranslationMatrix(0.5f * (new Vector2(currentTexture.width, currentTexture.height)
             + new Vector2(-size, size))),
             BlazeUtils.ScaleMatrix(new Vector2(scale, -scale)));
 
-        BlazeUtils.SampleImageAffine(webcamTexture, m_DetectorInput, M);
+        BlazeUtils.SampleImageAffine(currentTexture, m_DetectorInput, M);
 
         m_FaceDetectorWorker.Schedule(m_DetectorInput);
 
@@ -144,6 +167,12 @@ public class FaceDetection : MonoBehaviour
             var boxSize = 2f * (boxTopRight_ImageSpace - box_ImageSpace);
             facePreviews[i].SetBoundingBox(true, ImageToWorld(box_ImageSpace),
                 boxSize / m_TextureHeight);
+            for (var j = 0; j < k_NumKeypoints; j++)
+            {
+                var position_ImageSpace = BlazeUtils.mul(M, anchorPosition + new float2(
+                    outputBoxes[0, i, 4 + 2 * j], outputBoxes[0, i, 4 + 2 * j + 1]));
+                facePreviews[i].SetKeypoint(j, true, ImageToWorld(position_ImageSpace));
+            }
         }
 
         // Allow the main thread to process other tasks
@@ -154,6 +183,6 @@ public class FaceDetection : MonoBehaviour
     {
         m_DetectAwaitable?.Cancel();
         // **Stop the webcam when the script is destroyed**
-        webcamTexture.Stop();
+        webcamTexture?.Stop();
     }
 }

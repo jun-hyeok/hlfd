@@ -35,6 +35,7 @@ public class HoloLens2DA : MonoBehaviour
     private Texture2D tex_lt_ab;
     private Texture2D tex_lt_sigma;
     private Texture2D tex_pv;
+    public Texture2D texPv => tex_pv;
     // private Texture2D tex_ev;
 
     private RenderTexture[] tex_vlc_r;
@@ -235,7 +236,7 @@ public class HoloLens2DA : MonoBehaviour
         rm_depth_longthrow_images[1].GetComponent<Renderer>().material.mainTexture = tex_lt_ab_r;
         rm_depth_longthrow_images[2].GetComponent<Renderer>().material.mainTexture = tex_lt_sigma_r;
 
-        pv_image.GetComponent<Renderer>().material.mainTexture = tex_pv;
+        // pv_image.GetComponent<Renderer>().material.mainTexture = tex_pv;
 
         // ev_image.GetComponent<Renderer>().material.mainTexture = tex_ev;
 
@@ -408,12 +409,12 @@ public class HoloLens2DA : MonoBehaviour
 
         switch (fb.Id)
         {
-            case hl2da.SENSOR_ID.RM_VLC_LEFTFRONT:
-            case hl2da.SENSOR_ID.RM_VLC_LEFTLEFT:
-            case hl2da.SENSOR_ID.RM_VLC_RIGHTFRONT:
-            case hl2da.SENSOR_ID.RM_VLC_RIGHTRIGHT: Update_RM_VLC(fb); break;
-            case hl2da.SENSOR_ID.RM_DEPTH_AHAT: Update_RM_Depth_AHAT(fb); break;
-            case hl2da.SENSOR_ID.RM_DEPTH_LONGTHROW: Update_RM_Depth_Longthrow(fb); break;
+            // case hl2da.SENSOR_ID.RM_VLC_LEFTFRONT:
+            // case hl2da.SENSOR_ID.RM_VLC_LEFTLEFT:
+            // case hl2da.SENSOR_ID.RM_VLC_RIGHTFRONT:
+            // case hl2da.SENSOR_ID.RM_VLC_RIGHTRIGHT: Update_RM_VLC(fb); break;
+            // case hl2da.SENSOR_ID.RM_DEPTH_AHAT: Update_RM_Depth_AHAT(fb); break;
+            // case hl2da.SENSOR_ID.RM_DEPTH_LONGTHROW: Update_RM_Depth_Longthrow(fb); break;
             // case hl2da.SENSOR_ID.RM_IMU_ACCELEROMETER:  Update_RM_IMU_Accelerometer(fb); break;
             // case hl2da.SENSOR_ID.RM_IMU_GYROSCOPE:      Update_RM_IMU_Gyroscope(fb);     break;
             // case hl2da.SENSOR_ID.RM_IMU_MAGNETOMETER:   Update_RM_IMU_Magnetometer(fb);  break;
