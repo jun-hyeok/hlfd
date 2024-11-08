@@ -5,9 +5,9 @@ using TMPro;
 
 public class HoloLens2DA : MonoBehaviour
 {
-    public GameObject[] rm_vlc_images;
-    public GameObject[] rm_depth_ahat_images;
-    public GameObject[] rm_depth_longthrow_images;
+    // public GameObject[] rm_vlc_images;
+    // public GameObject[] rm_depth_ahat_images;
+    // public GameObject[] rm_depth_longthrow_images;
 
     // public GameObject[] poses;
     // public GameObject[] calibrations;
@@ -15,7 +15,7 @@ public class HoloLens2DA : MonoBehaviour
     // public GameObject acc_text;
     // public GameObject gyr_text;
     // public GameObject mag_text;
-    public GameObject pv_image;
+    // public GameObject pv_image;
     // public GameObject ev_image;
     // public GameObject mic_text;
     // public GameObject[] si_text;
@@ -28,22 +28,22 @@ public class HoloLens2DA : MonoBehaviour
     public Shader sqrtmap_shader;
     public Shader grayscale_shader;
 
-    private Texture2D[] tex_vlc;
-    private Texture2D tex_ht;
-    private Texture2D tex_ht_ab;
-    private Texture2D tex_lt;
-    private Texture2D tex_lt_ab;
-    private Texture2D tex_lt_sigma;
+    // private Texture2D[] tex_vlc;
+    // private Texture2D tex_ht;
+    // private Texture2D tex_ht_ab;
+    // private Texture2D tex_lt;
+    // private Texture2D tex_lt_ab;
+    // private Texture2D tex_lt_sigma;
     private Texture2D tex_pv;
     public Texture2D texPv => tex_pv;
     // private Texture2D tex_ev;
 
-    private RenderTexture[] tex_vlc_r;
-    private RenderTexture tex_ht_r;
-    private RenderTexture tex_ht_ab_r;
-    private RenderTexture tex_lt_r;
-    private RenderTexture tex_lt_ab_r;
-    private RenderTexture tex_lt_sigma_r;
+    // private RenderTexture[] tex_vlc_r;
+    // private RenderTexture tex_ht_r;
+    // private RenderTexture tex_ht_ab_r;
+    // private RenderTexture tex_lt_r;
+    // private RenderTexture tex_lt_ab_r;
+    // private RenderTexture tex_lt_sigma_r;
 
     private Material colormap_mat_ht;
     private Material colormap_mat_lt;
@@ -58,7 +58,7 @@ public class HoloLens2DA : MonoBehaviour
     // private hl2da.ev_captureformat evcf;
     // private hl2da.MC_CHANNELS mcch;
     // private hl2da.EE_FPS_INDEX eefi;
-    private bool invalidate_depth;
+    // private bool invalidate_depth;
     private ulong utc_offset;
     // private bool pv_settings_latch;
 
@@ -90,7 +90,7 @@ public class HoloLens2DA : MonoBehaviour
     void Start()
     {
         // Set invalid depth pixels to zero
-        invalidate_depth = true;
+        // invalidate_depth = true;
 
         // PV format
         // List of supported resolutions and framerates at https://github.com/jdibenes/hl2ss/blob/main/etc/pv_configurations.txt
@@ -152,12 +152,12 @@ public class HoloLens2DA : MonoBehaviour
         int pv_prio = hl2da.user.EX_GetInterfacePriority(hl2da.SENSOR_ID.PV);
 
         // Use a buffer size of 2 seconds (except longthrow and PV)
-        hl2da.user.Initialize(hl2da.SENSOR_ID.RM_VLC_LEFTFRONT, 60); // Buffer size limited by memory                          // 30 Hz
-        hl2da.user.Initialize(hl2da.SENSOR_ID.RM_VLC_LEFTLEFT, 60); // Buffer size limited by memory                          // 30 Hz
-        hl2da.user.Initialize(hl2da.SENSOR_ID.RM_VLC_RIGHTFRONT, 60); // Buffer size limited by memory                          // 30 Hz
-        hl2da.user.Initialize(hl2da.SENSOR_ID.RM_VLC_RIGHTRIGHT, 60); // Buffer size limited by memory                          // 30 Hz
-        hl2da.user.Initialize(hl2da.SENSOR_ID.RM_DEPTH_AHAT, 90); // Buffer size limited by memory                          // 45 Hz
-        hl2da.user.Initialize(hl2da.SENSOR_ID.RM_DEPTH_LONGTHROW, 15); // Buffer size limited by internal buffer - Maximum is 18 // 5 Hz
+        // hl2da.user.Initialize(hl2da.SENSOR_ID.RM_VLC_LEFTFRONT, 60); // Buffer size limited by memory                          // 30 Hz
+        // hl2da.user.Initialize(hl2da.SENSOR_ID.RM_VLC_LEFTLEFT, 60); // Buffer size limited by memory                          // 30 Hz
+        // hl2da.user.Initialize(hl2da.SENSOR_ID.RM_VLC_RIGHTFRONT, 60); // Buffer size limited by memory                          // 30 Hz
+        // hl2da.user.Initialize(hl2da.SENSOR_ID.RM_VLC_RIGHTRIGHT, 60); // Buffer size limited by memory                          // 30 Hz
+        // hl2da.user.Initialize(hl2da.SENSOR_ID.RM_DEPTH_AHAT, 90); // Buffer size limited by memory                          // 45 Hz
+        // hl2da.user.Initialize(hl2da.SENSOR_ID.RM_DEPTH_LONGTHROW, 15); // Buffer size limited by internal buffer - Maximum is 18 // 5 Hz
         // hl2da.user.Initialize(hl2da.SENSOR_ID.RM_IMU_ACCELEROMETER, 24); // Buffer size limited by memory                          // ~12 Hz per batch
         // hl2da.user.Initialize(hl2da.SENSOR_ID.RM_IMU_GYROSCOPE, 48); // Buffer size limited by memory                          // ~24 Hz per batch
         // hl2da.user.Initialize(hl2da.SENSOR_ID.RM_IMU_MAGNETOMETER, 10); // Buffer size limited by memory                          // ~5 Hz per batch
@@ -168,12 +168,12 @@ public class HoloLens2DA : MonoBehaviour
         // hl2da.user.Initialize(hl2da.SENSOR_ID.EXTENDED_AUDIO, 125); // Buffer size limited by memory                          // audio length per frame depends on your microphone
         // hl2da.user.Initialize(hl2da.SENSOR_ID.EXTENDED_VIDEO, 15); // Buffer size limited by internal buffer - Maximum is 18 // framerate depends on your camera
 
-        hl2da.user.SetEnable(hl2da.SENSOR_ID.RM_VLC_LEFTFRONT, true);
-        hl2da.user.SetEnable(hl2da.SENSOR_ID.RM_VLC_LEFTLEFT, true);
-        hl2da.user.SetEnable(hl2da.SENSOR_ID.RM_VLC_RIGHTFRONT, true);
-        hl2da.user.SetEnable(hl2da.SENSOR_ID.RM_VLC_RIGHTRIGHT, true);
-        hl2da.user.SetEnable(hl2da.SENSOR_ID.RM_DEPTH_AHAT, true);
-        hl2da.user.SetEnable(hl2da.SENSOR_ID.RM_DEPTH_LONGTHROW, true);
+        // hl2da.user.SetEnable(hl2da.SENSOR_ID.RM_VLC_LEFTFRONT, true);
+        // hl2da.user.SetEnable(hl2da.SENSOR_ID.RM_VLC_LEFTLEFT, true);
+        // hl2da.user.SetEnable(hl2da.SENSOR_ID.RM_VLC_RIGHTFRONT, true);
+        // hl2da.user.SetEnable(hl2da.SENSOR_ID.RM_VLC_RIGHTRIGHT, true);
+        // hl2da.user.SetEnable(hl2da.SENSOR_ID.RM_DEPTH_AHAT, true);
+        // hl2da.user.SetEnable(hl2da.SENSOR_ID.RM_DEPTH_LONGTHROW, true);
         // hl2da.user.SetEnable(hl2da.SENSOR_ID.RM_IMU_ACCELEROMETER, true);
         // hl2da.user.SetEnable(hl2da.SENSOR_ID.RM_IMU_GYROSCOPE, true);
         // hl2da.user.SetEnable(hl2da.SENSOR_ID.RM_IMU_MAGNETOMETER, true);
@@ -184,32 +184,32 @@ public class HoloLens2DA : MonoBehaviour
         // hl2da.user.SetEnable(hl2da.SENSOR_ID.EXTENDED_AUDIO, true);
         // hl2da.user.SetEnable(hl2da.SENSOR_ID.EXTENDED_VIDEO, true);
 
-        tex_vlc = new Texture2D[4];
+        // tex_vlc = new Texture2D[4];
 
-        tex_vlc[0] = new Texture2D(640, 480, TextureFormat.R8, false);
-        tex_vlc[1] = new Texture2D(640, 480, TextureFormat.R8, false);
-        tex_vlc[2] = new Texture2D(640, 480, TextureFormat.R8, false);
-        tex_vlc[3] = new Texture2D(640, 480, TextureFormat.R8, false);
-        tex_ht = new Texture2D(512, 512, TextureFormat.R16, false);
-        tex_ht_ab = new Texture2D(512, 512, TextureFormat.R16, false);
-        tex_lt = new Texture2D(320, 288, TextureFormat.R16, false);
-        tex_lt_ab = new Texture2D(320, 288, TextureFormat.R16, false);
-        tex_lt_sigma = new Texture2D(320, 288, TextureFormat.R8, false);
+        // tex_vlc[0] = new Texture2D(640, 480, TextureFormat.R8, false);
+        // tex_vlc[1] = new Texture2D(640, 480, TextureFormat.R8, false);
+        // tex_vlc[2] = new Texture2D(640, 480, TextureFormat.R8, false);
+        // tex_vlc[3] = new Texture2D(640, 480, TextureFormat.R8, false);
+        // tex_ht = new Texture2D(512, 512, TextureFormat.R16, false);
+        // tex_ht_ab = new Texture2D(512, 512, TextureFormat.R16, false);
+        // tex_lt = new Texture2D(320, 288, TextureFormat.R16, false);
+        // tex_lt_ab = new Texture2D(320, 288, TextureFormat.R16, false);
+        // tex_lt_sigma = new Texture2D(320, 288, TextureFormat.R8, false);
 
         tex_pv = new Texture2D((int)hl2da.converter.GetStride_PV(pvcf.width), pvcf.height, TextureFormat.BGRA32, false);
         // tex_ev = new Texture2D(evcf.width, evcf.height, TextureFormat.BGRA32, false);
 
-        tex_vlc_r = new RenderTexture[4];
+        // tex_vlc_r = new RenderTexture[4];
 
-        tex_vlc_r[0] = new RenderTexture(640, 480, 0, RenderTextureFormat.BGRA32);
-        tex_vlc_r[1] = new RenderTexture(640, 480, 0, RenderTextureFormat.BGRA32);
-        tex_vlc_r[2] = new RenderTexture(640, 480, 0, RenderTextureFormat.BGRA32);
-        tex_vlc_r[3] = new RenderTexture(640, 480, 0, RenderTextureFormat.BGRA32);
-        tex_ht_r = new RenderTexture(512, 512, 0, RenderTextureFormat.BGRA32);
-        tex_ht_ab_r = new RenderTexture(512, 512, 0, RenderTextureFormat.BGRA32);
-        tex_lt_r = new RenderTexture(320, 288, 0, RenderTextureFormat.BGRA32);
-        tex_lt_ab_r = new RenderTexture(320, 288, 0, RenderTextureFormat.BGRA32);
-        tex_lt_sigma_r = new RenderTexture(320, 288, 0, RenderTextureFormat.BGRA32);
+        // tex_vlc_r[0] = new RenderTexture(640, 480, 0, RenderTextureFormat.BGRA32);
+        // tex_vlc_r[1] = new RenderTexture(640, 480, 0, RenderTextureFormat.BGRA32);
+        // tex_vlc_r[2] = new RenderTexture(640, 480, 0, RenderTextureFormat.BGRA32);
+        // tex_vlc_r[3] = new RenderTexture(640, 480, 0, RenderTextureFormat.BGRA32);
+        // tex_ht_r = new RenderTexture(512, 512, 0, RenderTextureFormat.BGRA32);
+        // tex_ht_ab_r = new RenderTexture(512, 512, 0, RenderTextureFormat.BGRA32);
+        // tex_lt_r = new RenderTexture(320, 288, 0, RenderTextureFormat.BGRA32);
+        // tex_lt_ab_r = new RenderTexture(320, 288, 0, RenderTextureFormat.BGRA32);
+        // tex_lt_sigma_r = new RenderTexture(320, 288, 0, RenderTextureFormat.BGRA32);
 
         colormap_mat_ht = new Material(colormap_shader);
         colormap_mat_lt = new Material(colormap_shader);
@@ -224,17 +224,17 @@ public class HoloLens2DA : MonoBehaviour
         colormap_mat_lt.SetFloat("_Lf", 0.0f / 65535.0f);
         colormap_mat_lt.SetFloat("_Rf", 3000.0f / 65535.0f);
 
-        rm_vlc_images[0].GetComponent<Renderer>().material.mainTexture = tex_vlc_r[0];
-        rm_vlc_images[1].GetComponent<Renderer>().material.mainTexture = tex_vlc_r[1];
-        rm_vlc_images[2].GetComponent<Renderer>().material.mainTexture = tex_vlc_r[2];
-        rm_vlc_images[3].GetComponent<Renderer>().material.mainTexture = tex_vlc_r[3];
+        // rm_vlc_images[0].GetComponent<Renderer>().material.mainTexture = tex_vlc_r[0];
+        // rm_vlc_images[1].GetComponent<Renderer>().material.mainTexture = tex_vlc_r[1];
+        // rm_vlc_images[2].GetComponent<Renderer>().material.mainTexture = tex_vlc_r[2];
+        // rm_vlc_images[3].GetComponent<Renderer>().material.mainTexture = tex_vlc_r[3];
 
-        rm_depth_ahat_images[0].GetComponent<Renderer>().material.mainTexture = tex_ht_r;
-        rm_depth_ahat_images[1].GetComponent<Renderer>().material.mainTexture = tex_ht_ab_r;
+        // rm_depth_ahat_images[0].GetComponent<Renderer>().material.mainTexture = tex_ht_r;
+        // rm_depth_ahat_images[1].GetComponent<Renderer>().material.mainTexture = tex_ht_ab_r;
 
-        rm_depth_longthrow_images[0].GetComponent<Renderer>().material.mainTexture = tex_lt_r;
-        rm_depth_longthrow_images[1].GetComponent<Renderer>().material.mainTexture = tex_lt_ab_r;
-        rm_depth_longthrow_images[2].GetComponent<Renderer>().material.mainTexture = tex_lt_sigma_r;
+        // rm_depth_longthrow_images[0].GetComponent<Renderer>().material.mainTexture = tex_lt_r;
+        // rm_depth_longthrow_images[1].GetComponent<Renderer>().material.mainTexture = tex_lt_ab_r;
+        // rm_depth_longthrow_images[2].GetComponent<Renderer>().material.mainTexture = tex_lt_sigma_r;
 
         // pv_image.GetComponent<Renderer>().material.mainTexture = tex_pv;
 
@@ -427,62 +427,62 @@ public class HoloLens2DA : MonoBehaviour
         }
     }
 
-    void Update_RM_VLC(hl2da.framebuffer fb)
-    {
-        int index = (int)fb.Id;
+    // void Update_RM_VLC(hl2da.framebuffer fb)
+    // {
+    //     int index = (int)fb.Id;
 
-        // Load frame data into textures
-        //byte[,] undistorted_image = hl2da_coprocessor.RM_Undistort<byte>(fb.Id, rm_mapxy[fb.Id], 1, 0, 0, fb.Buffer(0));
-        //GCHandle h2 = GCHandle.Alloc(undistorted_image, GCHandleType.Pinned);
-        //tex_vlc[index].LoadRawTextureData(h2.AddrOfPinnedObject(), fb.Length(0) * sizeof(byte));
-        //h2.Free();
-        tex_vlc[index].LoadRawTextureData(fb.Buffer(0), fb.Length(0) * sizeof(byte));  // Image is u8
-        tex_vlc[index].Apply();
-        Graphics.Blit(tex_vlc[index], tex_vlc_r[index], grayscale_mat); // Apply grayscale map to Image
+    //     // Load frame data into textures
+    //     //byte[,] undistorted_image = hl2da_coprocessor.RM_Undistort<byte>(fb.Id, rm_mapxy[fb.Id], 1, 0, 0, fb.Buffer(0));
+    //     //GCHandle h2 = GCHandle.Alloc(undistorted_image, GCHandleType.Pinned);
+    //     //tex_vlc[index].LoadRawTextureData(h2.AddrOfPinnedObject(), fb.Length(0) * sizeof(byte));
+    //     //h2.Free();
+    //     tex_vlc[index].LoadRawTextureData(fb.Buffer(0), fb.Length(0) * sizeof(byte));  // Image is u8
+    //     tex_vlc[index].Apply();
+    //     Graphics.Blit(tex_vlc[index], tex_vlc_r[index], grayscale_mat); // Apply grayscale map to Image
 
-        // var metadata = hl2da.user.Unpack<hl2da.vlc_metadata>(fb.Buffer(2));
+    //     // var metadata = hl2da.user.Unpack<hl2da.vlc_metadata>(fb.Buffer(2));
 
-        // Display pose
-        // float[,] pose = hl2da.user.Unpack2D<float>(fb.Buffer(3), hl2da.user.POSE_ROWS, hl2da.user.POSE_COLS);
-        // tmp_vlc_pose[index].text = sensor_names[fb.Id] + string.Format(" exposure={0}, gain={1}", metadata.exposure, metadata.gain) + " Pose: " + PoseToString(pose);
-    }
+    //     // Display pose
+    //     // float[,] pose = hl2da.user.Unpack2D<float>(fb.Buffer(3), hl2da.user.POSE_ROWS, hl2da.user.POSE_COLS);
+    //     // tmp_vlc_pose[index].text = sensor_names[fb.Id] + string.Format(" exposure={0}, gain={1}", metadata.exposure, metadata.gain) + " Pose: " + PoseToString(pose);
+    // }
 
-    void Update_RM_Depth_AHAT(hl2da.framebuffer fb)
-    {
-        if (invalidate_depth) { hl2da.IMT_ZHTInvalidate(fb.Buffer(0), fb.Buffer(0)); }
+    // void Update_RM_Depth_AHAT(hl2da.framebuffer fb)
+    // {
+    //     if (invalidate_depth) { hl2da.IMT_ZHTInvalidate(fb.Buffer(0), fb.Buffer(0)); }
 
-        // Load frame data into textures
-        tex_ht.LoadRawTextureData(fb.Buffer(0), fb.Length(0) * sizeof(ushort));  // Depth is u16
-        tex_ht_ab.LoadRawTextureData(fb.Buffer(1), fb.Length(1) * sizeof(ushort));  // AB is u16
-        tex_ht.Apply();
-        tex_ht_ab.Apply();
-        Graphics.Blit(tex_ht, tex_ht_r, colormap_mat_ht); // Apply color map to Depth
-        Graphics.Blit(tex_ht_ab, tex_ht_ab_r, sqrtmap_mat); // Apply sqrt map to AB for visibility
+    //     // Load frame data into textures
+    //     tex_ht.LoadRawTextureData(fb.Buffer(0), fb.Length(0) * sizeof(ushort));  // Depth is u16
+    //     tex_ht_ab.LoadRawTextureData(fb.Buffer(1), fb.Length(1) * sizeof(ushort));  // AB is u16
+    //     tex_ht.Apply();
+    //     tex_ht_ab.Apply();
+    //     Graphics.Blit(tex_ht, tex_ht_r, colormap_mat_ht); // Apply color map to Depth
+    //     Graphics.Blit(tex_ht_ab, tex_ht_ab_r, sqrtmap_mat); // Apply sqrt map to AB for visibility
 
-        // Display pose
-        // float[,] pose = hl2da.user.Unpack2D<float>(fb.Buffer(3), hl2da.user.POSE_ROWS, hl2da.user.POSE_COLS);
-        // tmp_ht_pose.text = sensor_names[fb.Id] + " Pose: " + PoseToString(pose);
-    }
+    //     // Display pose
+    //     // float[,] pose = hl2da.user.Unpack2D<float>(fb.Buffer(3), hl2da.user.POSE_ROWS, hl2da.user.POSE_COLS);
+    //     // tmp_ht_pose.text = sensor_names[fb.Id] + " Pose: " + PoseToString(pose);
+    // }
 
-    void Update_RM_Depth_Longthrow(hl2da.framebuffer fb)
-    {
-        if (invalidate_depth) { hl2da.IMT_ZLTInvalidate(fb.Buffer(2), fb.Buffer(0), fb.Buffer(0)); }
+    // void Update_RM_Depth_Longthrow(hl2da.framebuffer fb)
+    // {
+    //     if (invalidate_depth) { hl2da.IMT_ZLTInvalidate(fb.Buffer(2), fb.Buffer(0), fb.Buffer(0)); }
 
-        // Load frame data into textures
-        tex_lt.LoadRawTextureData(fb.Buffer(0), fb.Length(0) * sizeof(ushort)); // Depth is u16
-        tex_lt_ab.LoadRawTextureData(fb.Buffer(1), fb.Length(1) * sizeof(ushort)); // AB is u16
-        tex_lt_sigma.LoadRawTextureData(fb.Buffer(2), fb.Length(2) * sizeof(byte)); // Sigma is u8
-        tex_lt.Apply();
-        tex_lt_ab.Apply();
-        tex_lt_sigma.Apply();
-        Graphics.Blit(tex_lt, tex_lt_r, colormap_mat_lt); // Apply color map to Depth
-        Graphics.Blit(tex_lt_ab, tex_lt_ab_r, sqrtmap_mat); // Apply sqrt map to AB for visibility
-        Graphics.Blit(tex_lt_sigma, tex_lt_sigma_r, grayscale_mat); // Apply grayscale map to sigma
+    //     // Load frame data into textures
+    //     tex_lt.LoadRawTextureData(fb.Buffer(0), fb.Length(0) * sizeof(ushort)); // Depth is u16
+    //     tex_lt_ab.LoadRawTextureData(fb.Buffer(1), fb.Length(1) * sizeof(ushort)); // AB is u16
+    //     tex_lt_sigma.LoadRawTextureData(fb.Buffer(2), fb.Length(2) * sizeof(byte)); // Sigma is u8
+    //     tex_lt.Apply();
+    //     tex_lt_ab.Apply();
+    //     tex_lt_sigma.Apply();
+    //     Graphics.Blit(tex_lt, tex_lt_r, colormap_mat_lt); // Apply color map to Depth
+    //     Graphics.Blit(tex_lt_ab, tex_lt_ab_r, sqrtmap_mat); // Apply sqrt map to AB for visibility
+    //     Graphics.Blit(tex_lt_sigma, tex_lt_sigma_r, grayscale_mat); // Apply grayscale map to sigma
 
-        // Display pose
-        // float[,] pose = hl2da.user.Unpack2D<float>(fb.Buffer(3), hl2da.user.POSE_ROWS, hl2da.user.POSE_COLS);
-        // tmp_lt_pose.text = sensor_names[fb.Id] + " Pose: " + PoseToString(pose);
-    }
+    //     // Display pose
+    //     // float[,] pose = hl2da.user.Unpack2D<float>(fb.Buffer(3), hl2da.user.POSE_ROWS, hl2da.user.POSE_COLS);
+    //     // tmp_lt_pose.text = sensor_names[fb.Id] + " Pose: " + PoseToString(pose);
+    // }
 
     // void Update_RM_IMU_Accelerometer(hl2da.framebuffer fb)
     // {
