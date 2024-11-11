@@ -162,7 +162,8 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   androidMinAspectRatio: 1
-  applicationIdentifier: {}
+  applicationIdentifier:
+    Standalone: com.jcds.hl2da-unity
   buildNumber:
     Standalone: 0
     VisionOS: 0
@@ -701,13 +702,13 @@ PlayerSettings:
   syncCapabilities: 0
   platformCapabilities:
     WindowsStoreApps:
-      GazeInput: True
-      PrivateNetworkClientServer: True
-      InternetClientServer: True
-      SpatialPerception: True
-      InternetClient: True
+      GazeInput: False
+      PrivateNetworkClientServer: False
+      InternetClientServer: False
+      SpatialPerception: False
+      InternetClient: False
       WebCam: True
-      Microphone: True
+      Microphone: False
   metroTargetDeviceFamilies: {}
   metroFTAName: 
   metroFTAFileTypes: []

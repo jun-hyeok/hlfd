@@ -87,7 +87,6 @@ public class FaceDetection : MonoBehaviour
         {
             try
             {
-                // m_DetectAwaitable = Detect(imageTexture);
                 m_DetectAwaitable = Detect();
                 await m_DetectAwaitable;
             }
@@ -103,7 +102,6 @@ public class FaceDetection : MonoBehaviour
 
     Vector3 ImageToWorld(Vector2 position)
     {
-        // position.y = useWebcam ? position.y : m_TextureHeight - position.y;
         return (position - 0.5f * new Vector2(m_TextureWidth, m_TextureHeight)) / m_TextureHeight;
     }
 
